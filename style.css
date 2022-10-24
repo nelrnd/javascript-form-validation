@@ -77,3 +77,27 @@ form button {
 form button:hover {
   background-color: #bbb;
 }
+
+input.invalid {
+  border-color: #c52828 !important;
+}
+
+.error {
+  transform: translateX(-10px);
+  opacity: 0;
+  transition: all 200ms;
+}
+
+.error.active {
+  color: #c52828;
+  font-size: 14px;
+  margin-top: 0.25rem;
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.error.active::before {
+  content: url('./error.svg');
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}

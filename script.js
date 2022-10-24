@@ -80,7 +80,7 @@ zipcode.addEventListener('invalid', (event) => {
   } else if (zipcode.validity.tooLong) {
     msg = 'Your Zip code must not be longer than 10 characters.';
   }
-  country.setCustomValidity(msg);
+  zipcode.setCustomValidity(msg);
   displayErrorMessage(zipcode);
 });
 
@@ -88,6 +88,7 @@ function displayErrorMessage(elem) {
   const error = elem.nextElementSibling;
   error.textContent = elem.validationMessage;
   error.classList.add('active');
+  elem.classList.add('invalid');
 }
 
 function checkPasswordsMatch() {
