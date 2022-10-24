@@ -5,6 +5,7 @@ const password = document.getElementById('password');
 const passwordConfirm = document.getElementById('password-confirm');
 const country = document.getElementById('country');
 const zipcode = document.getElementById('zipcode');
+const inputs = document.querySelectorAll('#form input');
 
 form.addEventListener('submit', (event) => {
   if (!form.checkValidity()) {
@@ -51,7 +52,7 @@ password.addEventListener('invalid', (event) => {
 
 passwordConfirm.addEventListener('invalid', (event) => {
   let msg = '';
-  if (password.validity.valueMissing) {
+  if (passwordConfirm.validity.valueMissing) {
     msg = 'Confirmation of your password is required.';
   } else if (!checkPasswordsMatch()) {
     msg = 'Your password does not match its confirmation.';
@@ -82,6 +83,47 @@ zipcode.addEventListener('invalid', (event) => {
   }
   zipcode.setCustomValidity(msg);
   displayErrorMessage(zipcode);
+});
+
+inputs.forEach((input) => {
+  input.addEventListener('input', (event) => {
+    if (input.classList.contains('invalid')) {
+      input.checkValidity();
+      if (input.validity.valid) {
+        input.classList.remove('invalid');
+        input.nextElementSibling.classList.remove('active');
+      }
+      input.addEventListener('input', input.checkValidity);
+    }
+  });
+
+  input.addEventListener('blur', (event) => {
+    if (input.value.length > 0 || input.classList.contains('invalid')) {
+      input.checkValidity();
+      if (input.validity.valid) {
+        input.classList.remove('invalid');
+        input.nextElementSibling.classList.remove('active');
+      }
+      input.addEventListener('input', input.checkValidity);
+    }
+  });
+});
+
+passwordConfirm.addEventListener('blur', (event) => {
+  if (passwordConfirm.value.length > 0 && !checkPasswordsMatch()) {
+    passwordConfirm.dispatchEvent(new Event('invalid'));
+  }
+  passwordConfirm.addEventListener('input', (event) => {
+    if (!checkPasswordsMatch()) {
+      passwordConfirm.dispatchEvent(new Event('invalid'));
+    }
+  });
+});
+
+password.addEventListener('blur', (event) => {
+  if (!checkPasswordsMatch() && passwordConfirm.value.length > 0) {
+    passwordConfirm.dispatchEvent(new Event('invalid'));
+  }
 });
 
 function displayErrorMessage(elem) {
