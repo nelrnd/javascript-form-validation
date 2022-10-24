@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form novalidate="novalidate">
+    <form id="form" novalidate="novalidate">
       <div class="form-group">
         <label for="username">Username</label>
         <input
@@ -18,10 +18,12 @@
           required
           minlength="4"
         />
+        <div class="error"></div>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required />
+        <div class="error"></div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -32,6 +34,7 @@
           required
           minlength="8"
         />
+        <div class="error"></div>
       </div>
       <div class="form-group">
         <label for="password-confirm">Confirm password</label>
@@ -40,8 +43,8 @@
           id="password-confirm"
           name="password-confirm"
           required
-          minlength="8"
         />
+        <div class="error"></div>
       </div>
       <div class="form-grid">
         <div class="form-group">
@@ -53,6 +56,7 @@
             required
             minlength="4"
           />
+          <div class="error"></div>
         </div>
         <div class="form-group">
           <label for="zipcode">Zip code</label>
@@ -64,6 +68,7 @@
             minlength="5"
             maxlength="10"
           />
+          <div class="error"></div>
         </div>
       </div>
       <button type="submit">Submit</button>
